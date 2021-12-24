@@ -16,7 +16,7 @@ mvn install -DskipTests
 
 ```xml
 <dependency>
-    <groupId>com.jthinking.common.util</groupId>
+    <groupId>com.jthinking.common</groupId>
     <artifactId>ip-info</artifactId>
     <version>2.1.3</version>
 </dependency>

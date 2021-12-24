@@ -205,13 +205,13 @@ public class IpParser {
         }
     }
 
-    public static String rightPadZero(String source, int size) {
+    /*public static String rightPadZero(String source, int size) {
         if (source.length() >= size) {
             return source;
         } else {
             return source + "0".repeat(size - source.length());
         }
-    }
+    }*/
 
     public static byte[] intToByte4(int i) {
         byte[] targets = new byte[4];

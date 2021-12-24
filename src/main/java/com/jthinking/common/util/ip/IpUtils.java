@@ -17,7 +17,7 @@ class IpUtils {
     private static final Pattern IP_V4_PATTERN = Pattern.compile("([0-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}");
 
     static {
-        List<String> ipRangeList = List.of("10.0.0.0-10.255.255.255", "172.16.0.0-172.31.255.255", "192.168.0.0-192.168.255.255");
+        List<String> ipRangeList = Arrays.asList("10.0.0.0-10.255.255.255", "172.16.0.0-172.31.255.255", "192.168.0.0-192.168.255.255");
         for (String ipRange : ipRangeList) {
             String[] split = ipRange.split("-");
             lanIpList.add(new PrintIP.StartAndEnd(IpUtils.ip2long(split[0]), IpUtils.ip2long(split[1])));

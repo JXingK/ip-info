@@ -49,8 +49,11 @@ public class IPv6InfoUtils {
         }
 
         try (InputStream in = resource.openStream(); FileOutputStream out = new FileOutputStream(zipFile)) {
-            out.write(in.readAllBytes());
-
+            byte[] temp = new byte[1024];
+            int len;
+            while ((len = in.read(temp, 0, temp.length)) != -1) {
+                out.write(temp, 0, len);
+            }
         } catch (IOException e) {
             LOGGER.error("", e);
             return;
@@ -147,14 +150,14 @@ public class IPv6InfoUtils {
 
 
     private static IPv6Info convertToIPv6Info(String row) {
-        if ("".equals(row.strip())) {
+        if ("".equals(row.trim())) {
             return null;
         }
         String[] split = row.split("\\s+", 4);
         if (split.length != 4) {
             return null;
         }
-        String startIp = split[0].strip();
+        String startIp = split[0].trim();
         BigInteger startLong;
         try {
             startLong = getBigIntegerIPv6BytesHex(startIp);
@@ -163,7 +166,7 @@ public class IPv6InfoUtils {
             return null;
         }
 
-        String endIp = split[1].strip();
+        String endIp = split[1].trim();
         BigInteger endLong;
         try {
             endLong = getBigIntegerIPv6BytesHex(endIp);
@@ -172,8 +175,8 @@ public class IPv6InfoUtils {
             return null;
         }
 
-        String region = split[2].replace("ZX", "").strip();
-        String isp = split[3].replace("ZX", "").strip();
+        String region = split[2].replace("ZX", "").trim();
+        String isp = split[3].replace("ZX", "").trim();
 
         String country;
         boolean overseas;

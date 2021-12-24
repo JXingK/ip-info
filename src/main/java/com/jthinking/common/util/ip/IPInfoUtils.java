@@ -24,7 +24,7 @@ public class IPInfoUtils {
     }
 
 
-    public static final Map<String, String> COUNTRY_GEO = new HashMap<>() {
+    public static final Map<String, String> COUNTRY_GEO = new HashMap<String, String>() {
         {
             // 纬,经
             put("不丹", "27.466089,89.641907");
@@ -317,7 +317,7 @@ public class IPInfoUtils {
         }
     };
 
-    public static final Map<String, String> PROVINCE_GEO = new HashMap<>() {
+    public static final Map<String, String> PROVINCE_GEO = new HashMap<String, String>() {
         {
             // 纬,经
             put("中国", "39.904000,116.391000");

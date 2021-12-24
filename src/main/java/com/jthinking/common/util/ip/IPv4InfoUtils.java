@@ -47,8 +47,11 @@ public class IPv4InfoUtils {
         }
 
         try (InputStream in = resource.openStream(); FileOutputStream out = new FileOutputStream(zipFile)) {
-            out.write(in.readAllBytes());
-
+            byte[] temp = new byte[1024];
+            int len;
+            while ((len = in.read(temp, 0, temp.length)) != -1) {
+                out.write(temp, 0, len);
+            }
         } catch (IOException e) {
             LOGGER.error("", e);
             return;
@@ -120,25 +123,25 @@ public class IPv4InfoUtils {
 
 
     private static IPv4Info convertToIPv4Info(String row) {
-        if (row.strip().equals("")) {
+        if (row.trim().equals("")) {
             return null;
         }
         String[] split = row.split("\\s+", 4);
         if (split.length != 4) {
             return null;
         }
-        String startIp = split[0].strip();
+        String startIp = split[0].trim();
         if (!IpUtils.isIp(startIp)) {
             return null;
         }
         long startLong = IpUtils.ip2long(startIp);
-        String endIp = split[1].strip();
+        String endIp = split[1].trim();
         if (!IpUtils.isIp(endIp)) {
             return null;
         }
         long endLong = IpUtils.ip2long(endIp);
-        String region = split[2].strip();
-        String isp = split[3].replaceAll("CZ88\\.NET", "").strip();
+        String region = split[2].trim();
+        String isp = split[3].replaceAll("CZ88\\.NET", "").trim();
         if (startIp.equals("255.255.255.0")) {
             region = "保留地址";
             isp = "保留地址";

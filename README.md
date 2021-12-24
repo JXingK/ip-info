@@ -37,7 +37,7 @@ System.out.println(ipInfo.getLat()); // 纬度
 System.out.println(ipInfo.getLng()); // 经度
 
 for (int i = 0; i < 100; i++) {
-    System.out.println(IpInfoUtils.getIpInfo("54.213.132." + i));
+    System.out.println(IPInfoUtils.getIpInfo("54.213.132." + i));
 }
 
 ```

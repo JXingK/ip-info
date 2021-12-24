@@ -191,18 +191,5 @@ public class AppTest {
         IPInfo ipInfo3 = IPInfoUtils.getIpInfo("240E:0378:65FF:FFFF::");
     }
 
-    private static String convertToIPv4Info(String row) {
-        if (row.strip().equals("")) {
-            return null;
-        }
-        String[] split = row.split("\\s+", 4);
-        if (split.length != 4) {
-            return null;
-        }
-        String startIp = split[0].strip();
-
-        return startIp;
-    }
-
 
 }

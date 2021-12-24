@@ -6,23 +6,27 @@ IP地理位置获取。支持获取IPv4、IPv6地址信息。包括：国家中�
 
 ## 源码安装
 
+JDK版本最低需要8
+
 ```shell
 git clone https://gitee.com/jthinking/ip-info.git
 cd ip-info
 mvn install -DskipTests
 ```
 
-## Maven依赖
+## 快速入门
+
+Maven依赖
 
 ```xml
 <dependency>
     <groupId>com.jthinking.common</groupId>
     <artifactId>ip-info</artifactId>
-    <version>2.1.3</version>
+    <version>2.1.4</version>
 </dependency>
 ```
 
-## 快速入门
+示例代码
 
 ```java
 

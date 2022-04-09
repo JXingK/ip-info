@@ -48,6 +48,7 @@ public class AppTest {
         System.out.println(ipInfo10);
         System.out.println(ipInfo11);
         System.out.println(IPInfoUtils.getIpInfo("218.207.231.133"));
+        System.out.println(IPInfoUtils.getIpInfo("114.253.38.52"));
 
     }
 
@@ -69,9 +70,9 @@ public class AppTest {
         }
 
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 255; i++) {
             long s = System.currentTimeMillis();
-            System.out.println(IPInfoUtils.getIpInfo("54.213.132." + i));
+            System.out.println(IPInfoUtils.getIpInfo("154.213.132." + i));
             System.out.println(System.currentTimeMillis() - s);
 
 
@@ -189,6 +190,9 @@ public class AppTest {
         IPInfo ipInfo1 = IPInfoUtils.getIpInfo("222.128.176.102");
         IPInfo ipInfo2 = IPInfoUtils.getIpInfo("192.168.1.1");
         IPInfo ipInfo3 = IPInfoUtils.getIpInfo("240E:0378:65FF:FFFF::");
+        IPInfo ipInfo4 = IPInfoUtils.getIpInfo("39.98.119.92");
+        IPInfo ipInfo5 = IPInfoUtils.getIpInfo("255.255.255.255");
+        System.out.println();
     }
 
 

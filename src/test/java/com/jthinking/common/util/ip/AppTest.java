@@ -187,12 +187,18 @@ public class AppTest {
 
     @Test
     public void testExport() {
+        IPInfoUtils.init();
+
         IPInfo ipInfo1 = IPInfoUtils.getIpInfo("222.128.176.102");
+
         IPInfo ipInfo2 = IPInfoUtils.getIpInfo("192.168.1.1");
+        long l = System.nanoTime();
         IPInfo ipInfo3 = IPInfoUtils.getIpInfo("240E:0378:65FF:FFFF::");
+        System.out.println(ipInfo3);
+        System.out.println(System.nanoTime() - l);
         IPInfo ipInfo4 = IPInfoUtils.getIpInfo("39.98.119.92");
         IPInfo ipInfo5 = IPInfoUtils.getIpInfo("255.255.255.255");
-        System.out.println();
+
     }
 
 

@@ -23,6 +23,14 @@ public class IPInfoUtils {
         }
     }
 
+    /**
+     * 初始化过程需要耗费较长时间，大概为几秒钟，可调用init方法提前初始化，使得查询方法可快速返回结果。
+     * 如不调用该方法，当第一次调用getIpInfo方法时会自动调用init方法。
+     */
+    public static void init() {
+        IPv4InfoUtils.init();
+        IPv6InfoUtils.init();
+    }
 
     public static final Map<String, String> COUNTRY_GEO = new HashMap<String, String>() {
         {
@@ -361,6 +369,7 @@ public class IPInfoUtils {
             put("台湾", "25.040000,121.516000");
         }
     };
+
 
 
 }

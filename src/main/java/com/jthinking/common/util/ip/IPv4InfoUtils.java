@@ -19,7 +19,7 @@ public class IPv4InfoUtils {
 
     private static final Map<String, String> PROVINCE_GEO = IPInfoUtils.PROVINCE_GEO;
 
-    private synchronized static void init() {
+    public synchronized static void init() {
 
         if (ipv4InfoList != null && !ipv4InfoList.isEmpty()) {
             LOGGER.info("IPv4InfoUtils has already init");

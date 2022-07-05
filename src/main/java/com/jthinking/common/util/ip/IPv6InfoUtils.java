@@ -21,7 +21,7 @@ public class IPv6InfoUtils {
 
     private static final Map<String, String> PROVINCE_GEO = IPInfoUtils.PROVINCE_GEO;
 
-    private synchronized static void init() {
+    public synchronized static void init() {
 
         if (ipInfoList != null && !ipInfoList.isEmpty()) {
             LOGGER.info("IPInfoUtils has already init");

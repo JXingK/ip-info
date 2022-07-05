@@ -46,6 +46,16 @@ for (int i = 0; i < 100; i++) {
 
 ```
 
+init方法使用
+
+```java
+// 初始化过程需要耗费较长时间，大概为几秒钟，可调用init方法提前初始化，使得查询方法可快速返回结果。
+// 如不调用该方法，当第一次调用getIpInfo方法时会自动调用init方法。即使不显式调用init方法，也只会在第一次获取IP信息时自动调用一次。
+IPInfoUtils.init();
+
+IPInfo ipInfo = IPInfoUtils.getIpInfo("222.128.176.102");
+```
+
 ## 调用示例
 
 ```java

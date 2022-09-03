@@ -1,14 +1,9 @@
 package com.jthinking.common.util.ip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class IPInfoUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(IPInfoUtils.class);
 
     private static final IPInfo UNKNOWN = new IPInfo("未知", "未知", "未知", "未知", false, 0, 0);
 

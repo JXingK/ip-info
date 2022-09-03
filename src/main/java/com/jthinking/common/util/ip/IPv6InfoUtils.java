@@ -1,8 +1,6 @@
 package com.jthinking.common.util.ip;
 
 import com.jthinking.common.util.ip.parser.IpParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -10,8 +8,6 @@ import java.net.URL;
 import java.util.*;
 
 public class IPv6InfoUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(IPv6InfoUtils.class);
 
     private static List<IPv6Info> ipInfoList;
 
@@ -24,7 +20,6 @@ public class IPv6InfoUtils {
     public synchronized static void init() {
 
         if (ipInfoList != null && !ipInfoList.isEmpty()) {
-            LOGGER.info("IPInfoUtils has already init");
             return;
         }
 
@@ -32,8 +27,7 @@ public class IPv6InfoUtils {
         String userDir = System.getProperty("user.dir");
         File tmp = new File(userDir + "/tmp");
         if (!tmp.exists()) {
-            boolean mkdir = tmp.mkdir();
-            LOGGER.info("{} mkdir {}", tmp, mkdir);
+            tmp.mkdir();
         }
         File zipFile = new File(tmp.getAbsolutePath() + "/" + zipName);
         if (zipFile.exists()) {
@@ -44,8 +38,7 @@ public class IPv6InfoUtils {
 
         URL resource = IPv6InfoUtils.class.getClassLoader().getResource(zipName);
         if (resource == null) {
-            LOGGER.error("{} zip file not found", zipName);
-            return;
+            throw new RuntimeException(zipName + " zip file not found");
         }
 
         try (InputStream in = resource.openStream(); FileOutputStream out = new FileOutputStream(zipFile)) {
@@ -55,16 +48,14 @@ public class IPv6InfoUtils {
                 out.write(temp, 0, len);
             }
         } catch (IOException e) {
-            LOGGER.error("", e);
-            return;
+            throw new RuntimeException(e);
         }
 
         String ipInfoName;
         try {
             ipInfoName = ZipUtils.unZipReturnDir(zipFile, tmp.getAbsolutePath());
         } catch (Exception e) {
-            LOGGER.error("", e);
-            return;
+            throw new RuntimeException(e);
         }
         File ipInfoFile = new File(tmp.getAbsolutePath() + "/" + ipInfoName);
 
@@ -76,7 +67,7 @@ public class IPv6InfoUtils {
             }
             ipInfoList.sort(Comparator.comparing(IPv6Info::getStart));
         } catch (FileNotFoundException e) {
-            LOGGER.error("", e);
+            throw new RuntimeException(e);
         }
 
         ipInfoFile.deleteOnExit();
@@ -142,8 +133,7 @@ public class IPv6InfoUtils {
             }
             return ipInfoList;
         } catch (Exception e) {
-            LOGGER.error("", e);
-            return null;
+            throw new RuntimeException(e);
         }
 
     }
@@ -162,7 +152,6 @@ public class IPv6InfoUtils {
         try {
             startLong = getBigIntegerIPv6BytesHex(startIp);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
             return null;
         }
 
@@ -171,7 +160,6 @@ public class IPv6InfoUtils {
         try {
             endLong = getBigIntegerIPv6BytesHex(endIp);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
             return null;
         }
 

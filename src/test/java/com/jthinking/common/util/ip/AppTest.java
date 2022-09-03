@@ -189,7 +189,7 @@ public class AppTest {
     public void testExport() {
         IPInfoUtils.init();
 
-        IPInfo ipInfo1 = IPInfoUtils.getIpInfo("222.128.176.102");
+        IPInfo ipInfo1 = IPInfoUtils.getIpInfo("aaa");
 
         IPInfo ipInfo2 = IPInfoUtils.getIpInfo("192.168.1.1");
         long l = System.nanoTime();

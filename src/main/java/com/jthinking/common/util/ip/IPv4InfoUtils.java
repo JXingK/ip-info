@@ -1,15 +1,10 @@
 package com.jthinking.common.util.ip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.net.URL;
 import java.util.*;
 
 public class IPv4InfoUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(IPv4InfoUtils.class);
 
     private static List<IPv4Info> ipv4InfoList;
 
@@ -22,7 +17,6 @@ public class IPv4InfoUtils {
     public synchronized static void init() {
 
         if (ipv4InfoList != null && !ipv4InfoList.isEmpty()) {
-            LOGGER.info("IPv4InfoUtils has already init");
             return;
         }
 
@@ -30,8 +24,7 @@ public class IPv4InfoUtils {
         String userDir = System.getProperty("user.dir");
         File tmp = new File(userDir + "/tmp");
         if (!tmp.exists()) {
-            boolean mkdir = tmp.mkdir();
-            LOGGER.info("{} mkdir {}", tmp, mkdir);
+            tmp.mkdir();
         }
         File zipFile = new File(tmp.getAbsolutePath() + "/" + zipName);
         if (zipFile.exists()) {
@@ -42,8 +35,7 @@ public class IPv4InfoUtils {
 
         URL resource = IPv4InfoUtils.class.getClassLoader().getResource(zipName);
         if (resource == null) {
-            LOGGER.error("{} zip file not found", zipName);
-            return;
+            throw new RuntimeException(zipName + " zip file not found");
         }
 
         try (InputStream in = resource.openStream(); FileOutputStream out = new FileOutputStream(zipFile)) {
@@ -53,16 +45,14 @@ public class IPv4InfoUtils {
                 out.write(temp, 0, len);
             }
         } catch (IOException e) {
-            LOGGER.error("", e);
-            return;
+            throw new RuntimeException(e);
         }
 
         String ipv4InfoName;
         try {
             ipv4InfoName = ZipUtils.unZipReturnDir(zipFile, tmp.getAbsolutePath());
         } catch (Exception e) {
-            LOGGER.error("", e);
-            return;
+            throw new RuntimeException(e);
         }
         File ipv4InfoFile = new File(tmp.getAbsolutePath() + "/" + ipv4InfoName);
 
@@ -74,7 +64,7 @@ public class IPv4InfoUtils {
             }
             ipv4InfoList.sort(Comparator.comparing(IPv4Info::getStartLong));
         } catch (FileNotFoundException e) {
-            LOGGER.error("", e);
+            throw new RuntimeException(e);
         }
 
         ipv4InfoFile.deleteOnExit();
@@ -87,7 +77,6 @@ public class IPv4InfoUtils {
         if (ip == null) {
             return UNKNOWN;
         }
-        //TODO ipv6支持。暂时忽略ipv6地址
         if (ip.contains(":") || !IpUtils.isIp(ip)) {
             return UNKNOWN;
         }
@@ -115,8 +104,7 @@ public class IPv4InfoUtils {
             }
             return ipv4InfoList;
         } catch (Exception e) {
-            LOGGER.error("", e);
-            return null;
+            throw new RuntimeException(e);
         }
 
     }
